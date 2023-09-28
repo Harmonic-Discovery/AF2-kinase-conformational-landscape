@@ -6,9 +6,10 @@ import seaborn as sns
 
 def prepare_df(system, num_actives, where, to_ignore=None, best_poses=None):
     """
-    Picks only the best pose for each ligand and label the ligands
+    Picks only the best pose for each ligand and label the ligands.
+    The actives are required to come first in the docked file, followed by inactives/decoys
     """
-    mols = open(where+'/'+system+'_smina-docked.sdf', "r")
+    mols = open(where+'/'+system+'_smina-docked.sdf', "r") 
     print(' Loaded docking output file')
     lines = mols.readlines()
     str_to_check = 'minimizedAffinity'
@@ -29,12 +30,12 @@ def prepare_df(system, num_actives, where, to_ignore=None, best_poses=None):
         actives = pd.DataFrame(affinities[:num_actives], columns=['minimizedAffinity'])
 
     else:
-        aff_act_np  = np.array(affinities[:num_actives*9]).reshape(num_actives, 9)
+        aff_act_np  = np.array(affinities[:num_actives*9]).reshape(num_actives, 9)# smina generated 9 poses
         aff_act_np[to_ignore] = 0
         aff_act_best = [aff_act_np[x,y] for x,y in zip(range(len(aff_act_np[:,0])), best_poses-1)]
         actives = pd.DataFrame(aff_act_best, columns=['minimizedAffinity'])
 
-    inactives_decoys = pd.DataFrame(affinities[num_actives:3485:], columns=['minimizedAffinity'])
+    inactives_decoys = pd.DataFrame(affinities[num_actives::], columns=['minimizedAffinity'])
     actives['type'] = 'active'
     inactives_decoys['type'] = 'inactives+decoys'
 

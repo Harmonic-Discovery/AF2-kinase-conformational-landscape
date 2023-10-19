@@ -1,6 +1,10 @@
 # Investigating the conformational landscape of AlphaFold2-predicted protein kinase structures
 
-All scripts used to generate the figures in the paper "Investigating the conformational landscape of AlphaFold2-predicted protein kinase structures" by Al-Masri et al. 2023 are included. All inputs needed are in the `inputs` directory and all outputs generated in `outputs`. The scripts include:
+All scripts used to generate the figures in the paper "Investigating the conformational landscape of AlphaFold2-predicted protein kinase structures" by Al-Masri et al. 2023 are included. 
+
+![Alt text](outputs/figure.png?raw=true "Title")
+
+All inputs needed are in the `inputs` directory and all outputs generated in `outputs`. The scripts include:
 
 ## AF2 Database Structure Conformations & Pocket Residue Fingerprints
 
